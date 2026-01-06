@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rick & Morty Explorer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__row">
+      <div class="brand">
+        <div class="brand__logo">R&M</div>
+        <div class="brand__text">
+          <h1 class="brand__title">Rick & Morty Explorer</h1>
+          <p class="brand__subtitle">Fetch + filtros + paginado + modal</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="search">
+          <input id="searchInput" class="search__input" type="text" placeholder="Buscar personaje..." autocomplete="off" />
+          <button id="clearSearch" class="btn btn--ghost" type="button">Limpiar</button>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filtros por estado">
+          <button class="chip is-active" type="button" data-status="all">Todos</button>
+          <button class="chip" type="button" data-status="alive">Alive</button>
+          <button class="chip" type="button" data-status="dead">Dead</button>
+          <button class="chip" type="button" data-status="unknown">Unknown</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- barra superior: info + paginado -->
+    <section class="topbar">
+      <div class="topbar__left">
+        <p id="resultsInfo" class="muted">Listo para cargar personajes…</p>
+      </div>
+
+      <div class="topbar__right">
+        <button id="prevPage" class="btn btn--ghost" type="button">◀ Prev</button>
+        <span id="pageInfo" class="pageInfo">Página —</span>
+        <button id="nextPage" class="btn btn--ghost" type="button">Next ▶</button>
+      </div>
+    </section>
+
+    <!-- estados -->
+    <section id="stateArea" class="stateArea">
+      <div id="loader" class="loader is-hidden" aria-live="polite">
+        <div class="spinner"></div>
+        <p>Cargando…</p>
+      </div>
+
+      <div id="errorBox" class="errorBox is-hidden" role="alert">
+        <div class="errorBox__icon">!</div>
+        <div class="errorBox__content">
+          <h3 class="errorBox__title">Ups, algo salió mal</h3>
+          <p id="errorMsg" class="errorBox__msg">No se pudo cargar la información.</p>
+          <div class="errorBox__actions">
+            <button id="retryBtn" class="btn btn--primary" type="button">Reintentar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="emptyBox" class="emptyBox is-hidden">
+        <h3>No hay resultados</h3>
+        <p class="muted">Probá con otro nombre o filtro.</p>
+      </div>
+    </section>
+
+    <!-- grid de cards -->
+    <section>
+      <div id="cardsGrid" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Modal detalle -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="modalClose" class="modal__close" type="button" aria-label="Cerrar">✕</button>
+
+      <div class="modal__body">
+        <div class="modal__media">
+          <img id="modalImg" src="" alt="" />
+        </div>
+
+        <div class="modal__info">
+          <h2 id="modalTitle" class="modal__title">Nombre</h2>
+          <p id="modalMeta" class="modal__meta muted">Especie • Estado • Género</p>
+
+          <div class="modal__stats">
+            <div class="stat">
+              <span class="stat__label">Origen</span>
+              <span id="modalOrigin" class="stat__value">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Ubicación</span>
+              <span id="modalLocation" class="stat__value">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat__label">Episodios</span>
+              <span id="modalEpisodes" class="stat__value">—</span>
+            </div>
+          </div>
+
+          <div class="modal__actions">
+            <button id="openApiBtn" class="btn btn--ghost" type="button">Abrir en API</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
